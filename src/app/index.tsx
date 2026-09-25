@@ -2,7 +2,7 @@ import { FreckleFace_400Regular, useFonts } from '@expo-google-fonts/freckle-fac
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native';
 
-export default function home() {
+export default function welcomeScreen() {
   const [fontsLoaded] = useFonts({
     FreckleFace_400Regular,
   });
