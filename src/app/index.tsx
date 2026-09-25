@@ -1,5 +1,6 @@
 import { FreckleFace_400Regular, useFonts } from '@expo-google-fonts/freckle-face';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { router } from 'expo-router';
 import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function welcomeScreen() {
@@ -29,7 +30,7 @@ export default function welcomeScreen() {
 
       <View style={styles.bottomContent}>
         <Text style={styles.text}>Explore thSousands of dog breeds, find your favorites, and learn more about your furry friends.</Text>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={() => router.replace('/home')}>
           <Text style={styles.buttonText}>Get Started</Text>
           <MaterialDesignIcons name="arrow-right" />
         </Pressable>
