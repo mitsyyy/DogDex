@@ -6,7 +6,7 @@ export default function MainLayout() {
             <Tabs.Screen 
             name="home" 
             options={{
-                title: 'Home',
+                headerShown: false,
             }} />
         </Tabs>
     );
