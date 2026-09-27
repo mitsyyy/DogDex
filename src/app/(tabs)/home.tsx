@@ -3,6 +3,8 @@ import MaterialDesignIcons from '@react-native-vector-icons/material-design-icon
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import PopularBreeds from '../../components/PopularBreeds';
+
 export default function Home() {
     const [fontsLoaded] = useFonts({
         FreckleFace_400Regular,
@@ -31,6 +33,7 @@ export default function Home() {
                 </ImageBackground>
             </View>
 
+            <PopularBreeds />
         </SafeAreaView>
     );
 }
