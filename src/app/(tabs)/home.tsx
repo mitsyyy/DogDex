@@ -1,6 +1,6 @@
 import { FreckleFace_400Regular, useFonts } from '@expo-google-fonts/freckle-face';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home() {
@@ -25,8 +25,12 @@ export default function Home() {
             </View>
 
             <View>
-
+                <ImageBackground source={require('../../../assets/images/dog_banner.jpg')} style={styles.banner} >
+                    <Text>EXPLORE</Text>
+                    <Text>Meet Over 50+ Breeds</Text>
+                </ImageBackground>
             </View>
+
         </SafeAreaView>
     );
 }
@@ -34,7 +38,8 @@ export default function Home() {
 const styles = StyleSheet.create({
     mainContainer: {
         backgroundColor: 'white',
-        flex: 1
+        flex: 1,
+        paddingHorizontal: 15,
     },
 
     logo: {
@@ -58,6 +63,12 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20
-    }
+        paddingVertical: 20,
+    },
+
+    banner: {
+        height: 180,
+        borderRadius: 30,
+        overflow: 'hidden', 
+    },
 });
