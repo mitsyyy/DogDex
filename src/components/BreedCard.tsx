@@ -1,11 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
+import type { Breed } from '../types/dog';
 
-type BreedCardCrops = {
-    image: string;
-    name: string;
-}
-
-export default function BreedCard({ image, name }: BreedCardCrops) {
+export default function BreedCard({ image, name }: Breed) {
     return (
         <View>
             <Image source={{ uri:image }} style={styles.dogImage} />
