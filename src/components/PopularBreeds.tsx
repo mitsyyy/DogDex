@@ -6,7 +6,6 @@ import BreedCard from './BreedCard';
 
 const popularBreeds = [
     'pomeranian',
-    'beagle',
     'husky',
 ];
 
