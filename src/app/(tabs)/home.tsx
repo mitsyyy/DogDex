@@ -1,8 +1,9 @@
 import { FreckleFace_400Regular, useFonts } from '@expo-google-fonts/freckle-face';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import BrowseGroups from '../../components/BrowseGroups';
 import PopularBreeds from '../../components/PopularBreeds';
 
 export default function Home() {
@@ -16,24 +17,28 @@ export default function Home() {
 
     return (
         <SafeAreaView style={styles.mainContainer}>
-            <View style={styles.header}>
-                <View style={styles.logo}>
-                    <MaterialDesignIcons name="paw" size={25} color="#3b3025" />
-                    <Text style={styles.logoName}>DogDex</Text>
+            <ScrollView>
+                <View style={styles.header}>
+                    <View style={styles.logo}>
+                        <MaterialDesignIcons name="paw" size={25} color="#3b3025" />
+                        <Text style={styles.logoName}>DogDex</Text>
+                    </View>
+                    <View>
+                        <Image source={require('../../../assets/images/dogpfp.jpg')} style={styles.profile} />
+                    </View>
                 </View>
+
                 <View>
-                    <Image source={require('../../../assets/images/dogpfp.jpg')} style={styles.profile} />
+                    <ImageBackground source={require('../../../assets/images/dog_banner.jpg')} style={styles.banner} >
+                        <Text>EXPLORE</Text>
+                        <Text>Meet Over 50+ Breeds</Text>
+                    </ImageBackground>
                 </View>
-            </View>
 
-            <View>
-                <ImageBackground source={require('../../../assets/images/dog_banner.jpg')} style={styles.banner} >
-                    <Text>EXPLORE</Text>
-                    <Text>Meet Over 50+ Breeds</Text>
-                </ImageBackground>
-            </View>
+                <PopularBreeds />
 
-            <PopularBreeds />
+                <BrowseGroups />
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -43,6 +48,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flex: 1,
         paddingHorizontal: 15,
+        marginHorizontal: 'auto'
     },
 
     logo: {
@@ -72,6 +78,6 @@ const styles = StyleSheet.create({
     banner: {
         height: 180,
         borderRadius: 30,
-        overflow: 'hidden', 
+        overflow: 'hidden',
     },
 });
