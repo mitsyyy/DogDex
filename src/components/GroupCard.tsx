@@ -2,9 +2,9 @@ import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-
 import { ImageBackground, Pressable, StyleSheet, Text } from 'react-native';
 import type { Breed } from '../types/dog';
 
-export default function GroupCard({image, name}: Breed) {
+export default function GroupCard({image, name, onPress}: Breed) {
     return(
-        <Pressable>
+        <Pressable onPress={onPress}>
             <ImageBackground source={image} style={styles.image}>
             <Text style={styles.text}>{name}</Text>
             

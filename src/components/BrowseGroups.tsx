@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 import GroupCard from './GroupCard';
 
@@ -39,6 +40,7 @@ export default function BrowseGroups() {
                         key={group.name}
                         name={group.name}
                         image={group.image}
+                        onPress={() => router.push(`../group/${group.name}`)}
                     />
                 ))}
             </View>
