@@ -1,4 +1,6 @@
+import { ImageSourcePropType } from 'react-native';
+
 export type Breed = {
-    image: any;
+    image: ImageSourcePropType;
     name: string;
 }
