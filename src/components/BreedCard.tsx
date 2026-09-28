@@ -1,12 +1,14 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { Breed } from '../types/dog';
 
-export default function BreedCard({ image, name }: Breed) {
+export default function BreedCard({ image, name, onPress }: Breed) {
     return (
+        <Pressable onPress={onPress}>
         <View>
-            <Image source={{ uri:image }} style={styles.dogImage} />
+            <Image source={image} style={styles.dogImage} />
             <Text style={styles.dogName}>{name}</Text>
         </View>
+        </Pressable>
     );
 }
 
