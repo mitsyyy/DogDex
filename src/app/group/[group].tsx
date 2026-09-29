@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -51,7 +51,13 @@ export default function GroupPage() {
                         name={breed.name}
                         image={breed.image}
                         onPress={() => {
-
+                            router.push({
+                                pathname: '/breed/[breed]',
+                                params: {
+                                    breed: breed.name,
+                                    group: group as string,
+                                },
+                            });
                         }}
                     />
                 ))}

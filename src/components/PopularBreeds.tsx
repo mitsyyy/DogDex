@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -38,12 +39,23 @@ export default function PopularBreeds() {
             </View>
 
             <View style={styles.breedContainer}>
+
                 {popularBreeds.map((breed) => (
-                    <BreedCard
-                        key={breed}
-                        name={breed}
-                        image={breedImages[breed]}
-                    />
+                    breedImages[breed] && (
+                        <BreedCard
+                            key={breed}
+                            name={breed}
+                            image={{ uri: breedImages[breed] }}
+                            onPress={() => {
+                                router.push({
+                                    pathname: '/breed/[breed]',
+                                    params: {
+                                        breed: breed,
+                                    },
+                                });
+                            }}
+                        />
+                    )
                 ))}
             </View>
         </View>
