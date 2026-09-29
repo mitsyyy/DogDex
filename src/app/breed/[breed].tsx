@@ -1,3 +1,4 @@
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ImageBackground, StyleSheet, Text } from 'react-native';
@@ -34,11 +35,10 @@ export default function BreedDetails() {
     return (
 
         <SafeAreaView style={styles.mainContainer}>
-            {image && (
                 <ImageBackground source={{ uri: image }} style={styles.imageBackground}>
+                    <MaterialDesignIcons name="arrow-left" size={24} color="white"/>
                     <Text>{breed}</Text>
                 </ImageBackground>
-            )}
         </SafeAreaView>
 
 
