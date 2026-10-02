@@ -3,6 +3,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDog } from '../../context/dogContext';
 
 
 import { getBreedImage, getSubBreedImage } from '../../api/dogApi';
@@ -12,6 +13,8 @@ export default function BreedDetails() {
     const { breed, group } = useLocalSearchParams();
 
     const [image, setImage] = useState<string | null>(null);
+
+    const { addSavedDog, addFavoriteDog, favoriteDogs, removeFavoriteDog } = useDog();
 
     useEffect(() => {
         async function loadImage() {
@@ -32,6 +35,12 @@ export default function BreedDetails() {
         }
         loadImage();
     }, [breed, group]);
+
+    const isFavorite = favoriteDogs.some(
+        (dog) => dog.name === breed
+    );
+
+
     return (
 
         <SafeAreaView style={styles.mainContainer}>
@@ -42,8 +51,19 @@ export default function BreedDetails() {
                             <Pressable style={styles.icon}>
                                 <MaterialDesignIcons name="arrow-left" size={24} color="black" />
                             </Pressable>
-                            <Pressable style={styles.icon}>
-                                <MaterialDesignIcons name="heart-outline" size={24} color="black" style={{ marginTop: 2 }} />
+                            <Pressable style={styles.icon} onPress={() => {
+                                if (!image) return;
+
+                                if (isFavorite) {
+                                    removeFavoriteDog(breed as string);
+                                } else {
+                                    addFavoriteDog({
+                                        name: breed as string,
+                                        image: image,
+                                    });
+                                }
+                            }}>
+                                <MaterialDesignIcons name={isFavorite ? 'heart' : 'heart-outline'} size={24} color="black" style={{ marginTop: 2 }} />
                             </Pressable >
                         </View>
                         <View style={styles.textContainer}>
@@ -53,7 +73,14 @@ export default function BreedDetails() {
                 </ImageBackground>
             )}
             <View style={styles.bottomContainer}>
-            <Pressable>
+            <Pressable
+            onPress={() => {
+                if (!image) return;
+                addSavedDog({
+                    name: breed as string,
+                    image: image,
+                });
+            }}>
                 <Text>Save to Favorites</Text>
             </Pressable>
             </View>
