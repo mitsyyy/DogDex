@@ -12,3 +12,9 @@ export type Dog = {
     group?: string;
 }
 
+export type SavedBreedCropProps = {
+    name: string;
+    image: string;
+    onPress: () => void;
+    onRemove: () => void;
+}
