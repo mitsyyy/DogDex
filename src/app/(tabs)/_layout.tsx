@@ -8,6 +8,12 @@ export default function MainLayout() {
             options={{
                 headerShown: false,
             }} />
+            <Tabs.Screen 
+            name="save"
+            options={{
+                headerShown: false,
+            }}
+            />
         </Tabs>
     );
 }
