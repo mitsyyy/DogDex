@@ -5,3 +5,10 @@ export type Breed = {
     name: string;
     onPress: () => void;
 }
+
+export type Dog = {
+    image: string;
+    name: string;
+    group?: string;
+}
+
