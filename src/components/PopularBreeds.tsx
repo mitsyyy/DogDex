@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { getBreedImage } from '../api/dogApi';
 import BreedCard from './BreedCard';
@@ -38,26 +38,28 @@ export default function PopularBreeds() {
                 </Pressable>
             </View>
 
-            <View style={styles.breedContainer}>
+            <FlatList
+            data={popularBreeds.filter((breed) => breedImages[breed])}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(breed) => breed}
+            contentContainerStyle={styles.breedContainer}
+            renderItem={({ item:breed }) => (
+                <BreedCard
+                name={breed}
+                image={{ uri: breedImages[breed] }}
+                onPress={() => {
+                    router.push({
+                        pathname: '../breed/[breed]',
+                        params: {
+                            breed: breed,
+                        }
+                    })
+                }}
+                />
+            )}
 
-                {popularBreeds.map((breed) => (
-                    breedImages[breed] && (
-                        <BreedCard
-                            key={breed}
-                            name={breed}
-                            image={{ uri: breedImages[breed] }}
-                            onPress={() => {
-                                router.push({
-                                    pathname: '/breed/[breed]',
-                                    params: {
-                                        breed: breed,
-                                    },
-                                });
-                            }}
-                        />
-                    )
-                ))}
-            </View>
+            />
         </View>
     );
 }
@@ -69,8 +71,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     breedContainer: {
-        flexDirection: 'row',
         gap: 15,
-        overflow: 'hidden'
     }
 });
