@@ -1,11 +1,12 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { getSubBreedImage, getSubBreeds } from '../../api/dogApi';
-import BreedCard from '../../components/BreedCard';
 import type { Breed } from '../../types/dog';
+
+import BreedCard from '../../components/BreedCard';
 
 export default function GroupPage() {
     const { group } = useLocalSearchParams();
@@ -41,28 +42,37 @@ export default function GroupPage() {
     }, [group]);
     return (
         <SafeAreaView style={styles.mainContainer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <Text>{group}</Text>
+            <FlatList
+                data={subBreeds}
+                keyExtractor={(breed) => breed.name}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+                ListHeaderComponent={
+                    <Text>
+                        {group}
+                    </Text>
+                }
+                renderItem={({ item: breed }) => (
+                    <View style={styles.cardContainer}>
+                        <BreedCard
+                            name={breed.name}
+                            image={breed.image}
+                            onPress={() => {
+                                router.push({
+                                    pathname: '../breed/[breed]',
+                                    params: {
+                                        breed: breed.name,
+                                        group: group as string,
+                                    }
+                                })
+                            }}
 
-            <View style={styles.dogcontainer}>
-                {subBreeds.map((breed) => (
-                    <BreedCard
-                        key={breed.name}
-                        name={breed.name}
-                        image={breed.image}
-                        onPress={() => {
-                            router.push({
-                                pathname: '/breed/[breed]',
-                                params: {
-                                    breed: breed.name,
-                                    group: group as string,
-                                },
-                            });
-                        }}
-                    />
-                ))}
-            </View>
-        </ScrollView>
+                        />
+                    </View>
+                )}
+                contentContainerStyle={styles.dogContainer}
+                columnWrapperStyle={styles.row}
+            />
         </SafeAreaView>
     )
 }
@@ -73,11 +83,17 @@ const styles = StyleSheet.create({
         padding: 15,
     },
 
-    dogcontainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        
+    dogContainer: {
+        paddingBottom: 20
+    },
+
+    row: {
         justifyContent: 'space-between',
-        marginHorizontal: 'auto',
+        gap: 12,
+        marginBottom: 12,
+    },
+
+    cardContainer: {
+        flex: 1,
     }
 })
