@@ -25,3 +25,8 @@ export type FavoriteBreedCardProps = {
     onPress: () => void;
     onFavoritePress: () => void;
 }
+
+export type BreedSearchItem = {
+    name: string;
+    group?: string;
+}
