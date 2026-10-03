@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import GroupCard from './GroupCard';
 
 const groups = [
@@ -35,14 +35,30 @@ export default function BrowseGroups() {
                 <Text>Browse by Groups</Text>
             </View>
             <View style={styles.container}>
-                {groups.map((group) => (
+              <FlatList
+              data={groups}
+              keyExtractor={(group) => group.name}
+              numColumns={3}
+              scrollEnabled={false}
+              columnWrapperStyle={styles.row}
+              contentContainerStyle={styles.container}
+              renderItem={({ item:group }) => (
+                <View style={styles.cardContainer}>
                     <GroupCard
-                        key={group.name}
-                        name={group.name}
-                        image={group.image}
-                        onPress={() => router.push(`../group/${group.name}`)}
+                    name={group.name}
+                    image={group.image}
+                    onPress={() => 
+                        router.push({
+                            pathname: '../group/[group]',
+                            params: {
+                                group: group.name.toLowerCase(),
+                            }
+                        })
+                    }
                     />
-                ))}
+                </View>
+              )}
+              />
             </View>
         </View>
     );
@@ -53,5 +69,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
+    },
+
+    row: {
+
+    },
+
+    cardContainer: {
+
     }
 })
