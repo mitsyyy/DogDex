@@ -18,3 +18,10 @@ export type SavedBreedCropProps = {
     onPress: () => void;
     onRemove: () => void;
 }
+
+export type FavoriteBreedCardProps = {
+    name: string;
+    image: string;
+    onPress: () => void;
+    onFavoritePress: () => void;
+}

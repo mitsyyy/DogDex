@@ -14,6 +14,12 @@ export default function MainLayout() {
                 headerShown: false,
             }}
             />
+            <Tabs.Screen
+            name="favorite"
+            options={{
+                headerShown: false,
+            }}
+            />
         </Tabs>
     );
 }
