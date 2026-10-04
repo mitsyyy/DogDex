@@ -23,12 +23,36 @@ const INITIAL_RECENT_SEARCHES = [
 ];
 
 const FEATURED_GROUPS = [
-    { name: 'Hound', key: 'hound' },
-    { name: 'Terrier', key: 'terrier' },
-    { name: 'Spaniel', key: 'spaniel' },
-    { name: 'Retriever', key: 'retriever' },
-    { name: 'Poodle', key: 'poodle' },
-    { name: 'Mastiff', key: 'mastiff' },
+    {
+        name: 'Terrier',
+        key: 'terrier',
+        image: require('../../../assets/images/groups/terrier.jpg'),
+    },
+    {
+        name: 'Hound',
+        key: 'hound',
+        image: require('../../../assets/images/groups/hound.jpg'),
+    },
+    {
+        name: 'Spaniel',
+        key: 'spaniel',
+        image: require('../../../assets/images/groups/spaniel.jpg'),
+    },
+    {
+        name: 'Retriever',
+        key: 'retriever',
+        image: require('../../../assets/images/groups/retriever.jpg'),
+    },
+    {
+        name: 'Poodle',
+        key: 'poodle',
+        image: require('../../../assets/images/groups/poodle.jpg'),
+    },
+    {
+        name: 'Mastiff',
+        key: 'mastiff',
+        image: require('../../../assets/images/groups/mastiff.jpg'),
+    },
 ];
 
 export default function Search() {
@@ -69,41 +93,6 @@ export default function Search() {
             isActive = false;
         };
     }, [retry]);
-
-    useEffect(() => {
-        let isActive = true;
-
-        async function loadGroupImages() {
-            const results = await Promise.all(
-                FEATURED_GROUPS.map(async (group) => {
-                    try {
-                        const image = await getBreedImage(group.key);
-                        return { key: group.key, image };
-                    } catch {
-                        return null;
-                    }
-                })
-            );
-
-            if (!isActive) return;
-
-            setImages((current) => {
-                const updated = { ...current };
-                results.forEach((res) => {
-                    if (res?.image) {
-                        updated[res.key] = res.image;
-                    }
-                });
-                return updated;
-            });
-        }
-
-        loadGroupImages();
-
-        return () => {
-            isActive = false;
-        };
-    }, []);
 
     const parentGroupNames = useMemo(() => {
         return new Set(
@@ -398,30 +387,23 @@ export default function Search() {
                                         Browse by Group
                                     </Text>
                                     <View style={styles.groupsGrid}>
-                                        {FEATURED_GROUPS.map((group) => {
-                                            const imageUri = images[group.key];
-                                            const imageSource = imageUri
-                                                ? { uri: imageUri }
-                                                : require('../../../assets/images/groups/terrier.jpg');
-
-                                            return (
-                                                <View
-                                                    key={group.key}
-                                                    style={styles.groupCardItem}
-                                                >
-                                                    <GroupCard
-                                                        name={group.name}
-                                                        image={imageSource}
-                                                        onPress={() =>
-                                                            router.push({
-                                                                pathname: '/group/[group]',
-                                                                params: { group: group.key },
-                                                            })
-                                                        }
-                                                    />
-                                                </View>
-                                            );
-                                        })}
+                                        {FEATURED_GROUPS.map((group) => (
+                                            <View
+                                                key={group.key}
+                                                style={styles.groupCardItem}
+                                            >
+                                                <GroupCard
+                                                    name={group.name}
+                                                    image={group.image}
+                                                    onPress={() =>
+                                                        router.push({
+                                                            pathname: '../group/[group]',
+                                                            params: { group: group.key },
+                                                        })
+                                                    }
+                                                />
+                                            </View>
+                                        ))}
                                     </View>
                                 </View>
                             </View>

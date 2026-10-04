@@ -9,23 +9,23 @@ const groups = [
     },
     {
         name: 'Hound',
-        image: require('../../assets/images/groups/terrier.jpg'),
+        image: require('../../assets/images/groups/hound.jpg'),
     },
     {
         name: 'Spaniel',
-        image: require('../../assets/images/groups/terrier.jpg'),
+        image: require('../../assets/images/groups/spaniel.jpg'),
     },
     {
         name: 'Retriever',
-        image: require('../../assets/images/groups/terrier.jpg'),
+        image: require('../../assets/images/groups/retriever.jpg'),
     },
     {
         name: 'Poodle',
-        image: require('../../assets/images/groups/terrier.jpg'),
+        image: require('../../assets/images/groups/poodle.jpg'),
     },
     {
-        name: 'Mestiff',
-        image: require('../../assets/images/groups/terrier.jpg'),
+        name: 'Mastiff',
+        image: require('../../assets/images/groups/mastiff.jpg'),
     },
 ]
 export default function BrowseGroups() {
@@ -35,30 +35,30 @@ export default function BrowseGroups() {
                 <Text>Browse by Groups</Text>
             </View>
             <View style={styles.container}>
-              <FlatList
-              data={groups}
-              keyExtractor={(group) => group.name}
-              numColumns={3}
-              scrollEnabled={false}
-              columnWrapperStyle={styles.row}
-              contentContainerStyle={styles.container}
-              renderItem={({ item:group }) => (
-                <View style={styles.cardContainer}>
-                    <GroupCard
-                    name={group.name}
-                    image={group.image}
-                    onPress={() => 
-                        router.push({
-                            pathname: '../group/[group]',
-                            params: {
-                                group: group.name.toLowerCase(),
-                            }
-                        })
-                    }
-                    />
-                </View>
-              )}
-              />
+                <FlatList
+                    data={groups}
+                    keyExtractor={(group) => group.name}
+                    numColumns={3}
+                    scrollEnabled={false}
+                    columnWrapperStyle={styles.row}
+                    contentContainerStyle={styles.container}
+                    renderItem={({ item: group }) => (
+                        <View style={styles.cardContainer}>
+                            <GroupCard
+                                name={group.name}
+                                image={group.image}
+                                onPress={() =>
+                                    router.push({
+                                        pathname: '../group/[group]',
+                                        params: {
+                                            group: group.name.toLowerCase(),
+                                        }
+                                    })
+                                }
+                            />
+                        </View>
+                    )}
+                />
             </View>
         </View>
     );
