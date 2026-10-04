@@ -26,6 +26,7 @@ export type SavedBreedCropProps = {
 export type FavoriteBreedCardProps = {
     name: string;
     image: string;
+    subBreed?: string;
     onPress: () => void;
     onFavoritePress: () => void;
 }
