@@ -15,8 +15,12 @@ export type Dog = {
 export type SavedBreedCropProps = {
     name: string;
     image: string;
+    subBreed?: string;
+    group?: string;
+    isFavorite?: boolean;
     onPress: () => void;
-    onRemove: () => void;
+    onToggleFavorite?: () => void;
+    onRemove?: () => void;
 }
 
 export type FavoriteBreedCardProps = {
