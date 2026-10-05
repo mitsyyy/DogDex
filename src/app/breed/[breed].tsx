@@ -95,7 +95,7 @@ export default function BreedDetails() {
     const displayName = formatDisplayName(breed, group);
     const subtitle = group
         ? `${group.charAt(0).toUpperCase() + group.slice(1).toLowerCase()} Group`
-        : 'Sporting Group';
+        : 'No sub-breed';
 
     function handleToggleFavorite() {
         if (!image || !breed) return;
