@@ -1,11 +1,13 @@
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { router } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { getAllBreeds, getBreedImage, getSubBreedImage } from '../../api/dogApi';
+import ErrorState from '../../components/ErrorState';
 import GroupCard from '../../components/GroupCard';
+import { SkeletonBox } from '../../components/Skeleton';
 import type { BreedSearchItem } from '../../types/dog';
 
 const POPULAR_SEARCHES = [
@@ -54,6 +56,42 @@ const FEATURED_GROUPS = [
         image: require('../../../assets/images/groups/mastiff.jpg'),
     },
 ];
+
+function SearchSkeleton() {
+    return (
+        <View style={styles.skeletonContainer}>
+            <View style={styles.section}>
+                <SkeletonBox width={140} height={18} borderRadius={6} style={styles.skeletonSectionTitle} />
+                <View style={styles.chipsContainer}>
+                    <SkeletonBox width={110} height={36} borderRadius={20} />
+                    <SkeletonBox width={130} height={36} borderRadius={20} />
+                    <SkeletonBox width={95} height={36} borderRadius={20} />
+                </View>
+            </View>
+
+            <View style={styles.section}>
+                <SkeletonBox width={150} height={18} borderRadius={6} style={styles.skeletonSectionTitle} />
+                <View style={styles.chipsContainer}>
+                    <SkeletonBox width={140} height={36} borderRadius={20} />
+                    <SkeletonBox width={120} height={36} borderRadius={20} />
+                    <SkeletonBox width={85} height={36} borderRadius={20} />
+                    <SkeletonBox width={105} height={36} borderRadius={20} />
+                </View>
+            </View>
+
+            <View style={styles.section}>
+                <SkeletonBox width={160} height={18} borderRadius={6} style={styles.skeletonSectionTitle} />
+                <View style={styles.groupsGrid}>
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                        <View key={i} style={styles.groupCardItem}>
+                            <SkeletonBox width="100%" height={105} borderRadius={14} />
+                        </View>
+                    ))}
+                </View>
+            </View>
+        </View>
+    );
+}
 
 export default function Search() {
     const [query, setQuery] = useState('');
@@ -293,20 +331,12 @@ export default function Search() {
             </View>
 
             {loading ? (
-                <View style={styles.centerState}>
-                    <ActivityIndicator size="large" color="#6B4F3A" />
-                    <Text style={styles.stateText}>Fetching dog breeds...</Text>
-                </View>
+                <SearchSkeleton />
             ) : error ? (
-                <View style={styles.centerState}>
-                    <Text style={styles.stateText}>{error}</Text>
-                    <Pressable
-                        style={styles.retryButton}
-                        onPress={() => setRetry((current) => current + 1)}
-                    >
-                        <Text style={styles.retryText}>Try again</Text>
-                    </Pressable>
-                </View>
+                <ErrorState
+                    message={error}
+                    onRetry={() => setRetry((current) => current + 1)}
+                />
             ) : (
                 <FlatList
                     data={isSearching ? filteredBreeds : []}
@@ -428,9 +458,11 @@ export default function Search() {
                                         style={styles.resultImage}
                                     />
                                 ) : (
-                                    <View style={styles.imagePlaceholder}>
-                                        <ActivityIndicator color="#6B4F3A" size="small" />
-                                    </View>
+                                    <SkeletonBox
+                                        width={58}
+                                        height={58}
+                                        borderRadius={12}
+                                    />
                                 )}
 
                                 <View style={styles.resultInfo}>
@@ -675,5 +707,14 @@ const styles = StyleSheet.create({
     retryText: {
         color: '#FFFFFF',
         fontWeight: '600',
+    },
+
+    skeletonContainer: {
+        paddingHorizontal: 16,
+        paddingBottom: 40,
+    },
+
+    skeletonSectionTitle: {
+        marginBottom: 12,
     },
 });

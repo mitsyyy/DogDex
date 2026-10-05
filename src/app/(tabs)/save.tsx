@@ -111,7 +111,7 @@ export default function Save() {
         <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
             <View style={styles.header}>
                 <Text style={styles.title}>Saved</Text>
-                <Text style={styles.subtitle}>Breeds you've saved for later</Text>
+                <Text style={styles.subtitle}>Breeds you&apos;ve saved for later</Text>
             </View>
 
             <FlatList
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
 
     listContent: {
         paddingHorizontal: 16,
-        paddingBottom: 30,
+        paddingBottom: 100,
         flexGrow: 1,
     },
 
